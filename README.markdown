@@ -5,10 +5,12 @@
 
 ## Introduction
 
-Grunfile.js is not reusable. bootstrap-grunt help you to organize your Gruntfile, splitting it in small files.
+bootstrap-grunt help you to configure Grunt in a maintainable way.
+
+Grunfile grows out of control easily. bootstrap-grunt break up Grunfile into many small-reusable files.
 
 
-# Example Guntfile.js
+# Guntfile.js
 
 ```js
 
@@ -58,6 +60,7 @@ module.exports = function (grunt) {
         // --------------
         // Loading your configuration/tasks
         // loadConfiguration(Array from, Object options);
+        // options has only "json_comments" atm.
 
         // *.js are required and execute it
         // Arguments passed: grunt, config, bootstrap
@@ -65,7 +68,6 @@ module.exports = function (grunt) {
         // *.json are treated as configuration extensors
         // *.yml are treated as configuration extensors
 
-        // options has only "json_comments" atm.
         .loadConfiguration([path.join(__dirname , 'grunt/*')], {json_comments: true})
 
         // init Grunt
@@ -75,6 +77,59 @@ module.exports = function (grunt) {
 
 ```
 
+# task: print.js
+
+```js
+
+module.exports = function(grunt, config, bootstrap) {
+    // set configuration
+    bootstrap.merge({
+        print: {
+            es: { options: { lang: "Hola!"}},
+            en: { options: { lang: "Hello!"}},
+        }
+
+    });
+
+    grunt.registerMultiTask('print', 'Increment HTML version', function () {
+        var options;
+
+        switch(this.target) {
+            case "es":
+                options = this.options({
+                    lang: "Adios!"
+                });
+                break;
+            case "en":
+                var options = this.options({
+                    lang: "Bye!"
+                });
+                break;
+
+        }
+
+        grunt.log.debug("In config: ", config.print[this.target].options.lang);
+        grunt.log.debug("In options: ", options.lang);
+    });
+};
+
+```
+
+# configuration: cssmin.json
+
+```json
+{
+    "cssmin": {
+        "dist": {
+            "expand": true,
+            "cwd": "public/css/",
+            "src": ["*.css", "!*.min.css"],
+            "dest": "public/css/",
+            "ext": ".min.css"
+        }
+    }
+}
+```
 
 
 ## license

@@ -93,12 +93,16 @@ module.exports.loadConfiguration = function (from, cfg) {
                         grunt.log.error(e);
                     }
                 } else {
-                    self.merge(grunt.file.readJSON(json));
+                    self.merge(grunt.file.readJSON(file));
                 }
 
                 break;
             case "js":
                 require(file)(grunt, config, self);
+                break;
+            case "yml":
+                self.merge(grunt.file.readYAML(file));
+                break;
         }
     });
 
