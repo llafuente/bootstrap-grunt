@@ -7,7 +7,7 @@
 
 bootstrap-grunt help you to configure Grunt in a maintainable way.
 
-Grunfile grows out of control easily. bootstrap-grunt break up Grunfile into many small-reusable files.
+Grunfile grows out of control easily. bootstrap-grunt break up Grunfile into many small-reusable files with tasks & config.
 
 
 # Guntfile.js
@@ -65,8 +65,8 @@ module.exports = function (grunt) {
         // *.js are required and execute it
         // Arguments passed: grunt, config, bootstrap
 
-        // *.json are treated as configuration extensors
-        // *.yml are treated as configuration extensors
+        // *.json are treated as config extensors
+        // *.yml are treated as config extensors
 
         .loadConfiguration([path.join(__dirname , 'grunt/*')], {json_comments: true})
 
@@ -82,30 +82,25 @@ module.exports = function (grunt) {
 ```js
 
 module.exports = function(grunt, config, bootstrap) {
-    // set configuration
+    // set configuration or use YML/JSON instead your choice!
     bootstrap.merge({
         print: {
             es: { options: { lang: "Hola!"}},
             en: { options: { lang: "Hello!"}},
         }
-
     });
 
+    // register tasks normally
     grunt.registerMultiTask('print', 'Increment HTML version', function () {
         var options;
 
         switch(this.target) {
             case "es":
-                options = this.options({
-                    lang: "Adios!"
-                });
+                options = this.options({ lang: "Adios!"});
                 break;
             case "en":
-                var options = this.options({
-                    lang: "Bye!"
-                });
+                var options = this.options({ lang: "Bye!"});
                 break;
-
         }
 
         grunt.log.debug("In config: ", config.print[this.target].options.lang);
@@ -115,7 +110,21 @@ module.exports = function(grunt, config, bootstrap) {
 
 ```
 
-# configuration: cssmin.json
+# config: print.yml
+
+```yml
+print:
+    es:
+        options:
+            lang: "Hola!"
+    en:
+        options:
+            lang: "Hello!"
+
+```
+
+
+# config: cssmin.json
 
 ```json
 {
