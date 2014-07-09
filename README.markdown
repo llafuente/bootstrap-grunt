@@ -5,12 +5,12 @@
 
 ## Introduction
 
-bootstrap-grunt help you to configure Grunt in a maintainable way.
+bootstrap-grunt helps you to configure Grunt in a maintainable way.
 
-Grunfile grows out of control easily. bootstrap-grunt break up Grunfile into many small-reusable tasks & config files.
+Gruntfile grows out of control easily. bootstrap-grunt breaks up Gruntfile into many small-reusable tasks & config files.
 
 
-# Guntfile.js
+# Gruntfile.js
 
 ```js
 
@@ -35,7 +35,7 @@ module.exports = function (grunt) {
             }
         })
 
-        // load package.json and store it's contents in <configuration>.pkg
+        // load package.json and store its contents in <configuration>.pkg
         // loadPackageJSON(String absolute_path)
         .loadPackageJSON(path.join(__dirname , 'package.json'))
 
@@ -158,15 +158,15 @@ Do something with the config at given point.
 
 #### `loadPackageJSON`(String absolute_path)
 
-Load (sync) Package.json and store it's contents in config.pkg
+Load (sync) package.json and store its contents in config.pkg
 
 #### `loadDevDependencies`()
 
-Load dependencies from readed package.json configuration `devDependencies` that starts with `grunt-`
+Load dependencies from read package.json configuration `devDependencies` that starts with `grunt-`
 
 #### `loadDependencies`()
 
-Load dependencies from readed package.json configuration `dependencies` that starts with `grunt-`
+Load dependencies from read package.json configuration `dependencies` that starts with `grunt-`
 
 #### `loadConfiguration`(Array from, Object cfg)
 

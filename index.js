@@ -98,6 +98,7 @@ module.exports.loadConfiguration = function (from, cfg) {
 
                 break;
             case "js":
+                grunt.verbose.writeln("Reading", file);
                 require(file)(grunt, config, self);
                 break;
             case "yml":
@@ -129,6 +130,8 @@ module.exports.alias = function (aliases) {
 
 
 module.exports.initConfig = function () {
+    grunt.verbose.writeln(">> ".green, "grunt.initConfig");
+
     grunt.initConfig(config);
 
     return this;
